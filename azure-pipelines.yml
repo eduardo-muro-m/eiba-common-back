@@ -1,0 +1,21 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+name: $(date:yyyyMMdd)$(rev:.r)
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+ repositories:
+   - repository: pipeline
+     type: git
+     name: Pipelines/pipelines-maven
+     endpoint: DEX-Templates-Service_Connection
+     ref: 'refs/heads/master'
+
+extends:
+  template: evolutio/mvn-template-ci-cd.yml@pipeline
+  parameters:
+    cdTemplate: eiba/mvn-job-empty.yml
